@@ -42,13 +42,24 @@ const Usertable = ({ users, removeItem }) => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {users.map((item) => (
-                                    <UserItem
-                                        key={item.imei}
-                                        item={item}
-                                        removeItem={removeItem}
-                                    />
-                                ))}
+                                {users.length != 0 ? (
+                                    users.map((item) => (
+                                        <UserItem
+                                            key={item.imei}
+                                            item={item}
+                                            removeItem={removeItem}
+                                        />
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td
+                                            className="px-6 py-4 whitespace-nowrap text-center"
+                                            colSpan="5"
+                                        >
+                                            Sin registros
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
