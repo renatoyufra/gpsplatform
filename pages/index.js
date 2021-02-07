@@ -1,65 +1,50 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { useState } from "react";
+import Header from "../components/header";
+import UserForm from "../components/UserForm";
+import Usertable from "../components/UserTable";
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    const [users, setUsers] = useState([
+        { user: "INTERBANK", car: "PKL222", imei: "323232323" },
+        { user: "PANDERO", car: "PO2222", imei: "99999999" },
+    ]);
+    const addUser = (item) => {
+        setUsers([...users, item]);
+    };
+    const removeItem = (itemToBeDeleted) => {
+        console.log("a borrar:" + JSON.stringify(itemToBeDeleted));
+        setUsers(users.filter((item) => itemToBeDeleted !== item));
+    };
+    return (
+        <div>
+            <Header />
+            <header className="bg-white shadow">
+                <div className="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-6">
+                    <h1 className="text-2xl font-bold leading-tight text-gray-900">
+                        Dashboard
+                    </h1>
+                </div>
+            </header>
+            <main className="bg-gray-100">
+                <div className="max-w-7xl mx-auto py-2 sm:px-6 lg:px-8">
+                    <div className="px-4 py-2 sm:px-0">
+                        <div className="rounded-lg">
+                            <div className="grid grid-cols-3 gap-4">
+                                <div>
+                                    <UserForm addUser={addUser} />
+                                </div>
+                                <div className="py-9">
+                                    <Usertable
+                                        users={users}
+                                        removeItem={removeItem}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    );
 }
