@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
-import Header from "../components/header";
+import Header from "../components/Header";
 import UserForm from "../components/UserForm";
 import Usertable from "../components/UserTable";
 
